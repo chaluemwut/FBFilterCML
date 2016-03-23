@@ -4,7 +4,7 @@ class MysqlDb(object):
     table_name = 'training_data_e1'
     
     def __init__(self):
-        self.conn = mysql.connector.connect(user='root', password='Rvpooh123',
+        self.conn = mysql.connector.connect(user='root', password='[6iuiy,pN',
                               host='127.0.0.1',
                               database='sdc')
         
