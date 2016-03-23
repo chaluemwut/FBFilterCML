@@ -130,14 +130,10 @@ def run_test():
     print 'fsc1 : {}, fsc2 : {}, fsc3 : {}, fsc4 : {}'.format(np.average(res1), np.average(res2), np.average(res3), np.average(res4))
 
 def dump_test():
-#     import matplotlib.pyplot as plt
     res1 = pickle.load(open('result/2000_1/res1.obj', 'rb'))
     res2 = pickle.load(open('result/2000_1/res2.obj', 'rb'))
     res3 = pickle.load(open('result/2000_1/res3.obj', 'rb'))
-    res4 = pickle.load(open('result/2000_1/res4.obj', 'rb'))
-#     plt.plot(res2)
-#     plt.show()
-#     print stats.ttest_ind(res1, res3)    
+    res4 = pickle.load(open('result/2000_1/res4.obj', 'rb'))  
     print 'fsc1 : {}, fsc2 : {}, fsc3 : {}, fsc4 : {}'.format(np.average(res1), np.average(res2), np.average(res3), np.average(res4))
     
           
