@@ -23,7 +23,15 @@ class MysqlDb(object):
         for row in cur.fetchall():
             ret_data.append(row[0])
         return ret_data
-        
+    
+    def get_n_row(self, cred_value, n):
+        cur = self.conn.cursor()
+        cur.execute("select id from "+self.table_name+" where cred_value = '"+cred_value+"' order by rand() limit "+str(n))
+        ret_data = []
+        for row in cur.fetchall():
+            ret_data.append(row[0])
+        return ret_data
+            
     def get_data(self):
         cur = self.conn.cursor()
         cur.execute("select id, message from "+self.table_name)
