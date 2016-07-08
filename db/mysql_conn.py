@@ -4,8 +4,8 @@ class MysqlDb(object):
     table_name = 'training_data_e1'
     
     def __init__(self):
-        self.conn = mysql.connector.connect(user='root', password='[6iuiy,pN',
-                              host='127.0.0.1',
+        self.conn = mysql.connector.connect(user='root', password='Rvpooh123',
+                              host='192.168.99.100',
                               database='sdc')
         
     def get_75_row(self, cred_value):
@@ -23,7 +23,23 @@ class MysqlDb(object):
         for row in cur.fetchall():
             ret_data.append(row[0])
         return ret_data
+
+    def get_notin_25_row(self, cred_value, str_lst):
+        cur = self.conn.cursor()
+        cur.execute("select id from "+self.table_name+" where cred_value = '"+cred_value+"' and id not in "+str_lst+" order by rand() limit 50")
+        ret_data = []
+        for row in cur.fetchall():
+            ret_data.append(row[0])
+        return ret_data
     
+    def get_notin_row(self, cred_value, str_lst, num_row):
+        cur = self.conn.cursor()
+        cur.execute("select id from "+self.table_name+" where cred_value = '"+cred_value+"' and id not in "+str_lst+" order by rand() limit "+str(num_row))
+        ret_data = []
+        for row in cur.fetchall():
+            ret_data.append(row[0])
+        return ret_data
+            
     def get_n_row(self, cred_value, n):
         cur = self.conn.cursor()
         cur.execute("select id from "+self.table_name+" where cred_value = '"+cred_value+"' order by rand() limit "+str(n))
@@ -31,7 +47,15 @@ class MysqlDb(object):
         for row in cur.fetchall():
             ret_data.append(row[0])
         return ret_data
-            
+
+    def get_random_training_data(self, str_lst, num_row):
+        cur = self.conn.cursor()
+        cur.execute('select id from {} where id not in {} order by rand() limit {}'.format(self.table_name, str_lst, num_row))
+        ret_data = []
+        for row in cur.fetchall():
+            ret_data.append(row[0])
+        return ret_data
+                
     def get_data(self):
         cur = self.conn.cursor()
         cur.execute("select id, message from "+self.table_name)
@@ -62,7 +86,7 @@ class MysqlDb(object):
             row_data = list(row)
             ret_data.append(row_data)
         return ret_data
-    
+        
     def get_label_data(self, lst_id):        
         cur = self.conn.cursor()
         sql = '''
@@ -81,7 +105,7 @@ class MysqlDb(object):
     
     def row_count(self, rec_id):
         cur = self.conn.cursor()
-        sql = 'select count(*) from training_data_e1 where id = '+rec_id
+        sql = 'select count(*) from {} where id = {}'.format(self.table_name, rec_id)
         cur.execute(sql)
         row = cur.fetchone()
         return row[0]
